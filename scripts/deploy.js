@@ -9,7 +9,7 @@ function save(chainId, name, value) {
 
   const fs = require("fs");
 
-  const filename = '../wagyu-addresses/' + chainId + '.json'
+  const filename = '../squiddy-addresses/' + chainId + '.json'
 
   const data = fs.existsSync(filename) ? JSON.parse(fs.readFileSync(filename, "utf8")) : {}
 
@@ -21,10 +21,10 @@ function save(chainId, name, value) {
 
 async function adjustPerifpherySourceCode(address) {
 
-  const PATH_GET = "../wagyu-swap-periphery/contracts/libraries/PancakeLibraryTemplate.sol"
-  const PATH_PUT = "../wagyu-swap-periphery/contracts/libraries/PancakeLibrary.sol"
+  const PATH_GET = "../squiddy-swap-periphery/contracts/libraries/PancakeLibraryTemplate.sol"
+  const PATH_PUT = "../squiddy-swap-periphery/contracts/libraries/PancakeLibrary.sol"
 
-  const contract = await ethers.getContractAt("WagyuFactory", address)
+  const contract = await ethers.getContractAt("SquiddyFactory", address)
 
   const INIT_CODE_PAIR_HASH = await contract.INIT_CODE_PAIR_HASH()
 
@@ -67,11 +67,11 @@ async function deploy(name, args=[]) {
 async function main() {
   // We get the contract to deploy
 
-  const admins = JSON.parse(require("fs").readFileSync('../wagyu-addresses/admins.json', 'utf8'))
+  const admins = JSON.parse(require("fs").readFileSync('../squiddy-addresses/admins.json', 'utf8'))
   
-  WagyuFactory = await deploy("WagyuFactory", [admins._devaddr])
+  WagyuFactory = await deploy("SquiddyFactory", [admins._devaddr])
 
-  await adjustPerifpherySourceCode(WagyuFactory)
+  await adjustPerifpherySourceCode(SquiddyFactory)
 
 }
 

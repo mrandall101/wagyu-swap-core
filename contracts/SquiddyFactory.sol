@@ -3,7 +3,7 @@ pragma solidity =0.5.16;
 import './interfaces/IPancakeFactory.sol';
 import './PancakePair.sol';
 
-contract WagyuFactory is IPancakeFactory {
+contract SquiddyFactory is IPancakeFactory {
     bytes32 public constant INIT_CODE_PAIR_HASH = keccak256(abi.encodePacked(type(PancakePair).creationCode));
 
     address public feeTo;
